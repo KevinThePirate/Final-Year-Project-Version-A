@@ -1,0 +1,7 @@
+* {
+  transition: 1s;
+}
+.checked-in {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
