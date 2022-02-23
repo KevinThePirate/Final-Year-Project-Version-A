@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import AddItem from "./AddItem";
 import LineItem from "./LineItem";
 
@@ -8,6 +9,11 @@ export default function HabitSection(props) {
     props.signUserOut();
     console.log(props.userInfo.displayName);
   };
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const close = () => setModalOpen(false);
+  const open = () => setModalOpen(true);
+
   return (
     <div>
       <p> User: {props.userInfo.displayName}</p>
@@ -23,11 +29,18 @@ export default function HabitSection(props) {
           getUserData={props.getUserData}
         />
       ))}
-      <AddItem
-        user={props.userInfo}
-        getUserData={props.getUserData}
-        userItems={props.userItems}
-      />
+      <button onClick={open}>Add Item!</button>
+      {modalOpen && (
+        <div>
+          <AddItem
+            user={props.userInfo}
+            getUserData={props.getUserData}
+            userItems={props.userItems}
+            modalOpen={modalOpen}
+            handleClose={close}
+          />
+        </div>
+      )}
     </div>
   );
 }

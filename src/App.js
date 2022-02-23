@@ -26,6 +26,7 @@ import {
   orderByChild,
   update,
 } from "firebase/database";
+import { motion, AnimatePresence } from "framer-motion";
 
 import SignIn from "./components/SignIn";
 import HabitSection from "./components/HabitSection";
@@ -69,10 +70,7 @@ function App() {
 
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-    setPersistence(authentication, browserSessionPersistence)
-      .then(() => {
-        return signInWithPopup(authentication, provider);
-      })
+    signInWithPopup(authentication, provider)
       .then((re) => {
         // console.log("re");
         // console.log(re.user);
