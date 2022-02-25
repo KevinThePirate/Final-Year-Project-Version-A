@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
-import { collection, addDoc, FieldValue, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  FieldValue,
+  Timestamp,
+  getDocs,
+} from "firebase/firestore";
 import { motion, AnimatePresence } from "framer-motion";
 import Backdrop from "./Backdrop";
 
@@ -25,12 +31,10 @@ const dropIn = {
   },
 };
 
-let standHabits = ["Walk", "Run", "Water", "Meditate"];
+//let standHabits = ["Walk", "Run", "Water", "Meditate"];
 
 export default function AddItem(props, { handleClose, text }) {
   const [title, setTitle] = React.useState("");
-  const [index, setIndex] = React.useState(0);
-  const userItemRef = collection(db, `users/${props.user.uid}/todos`);
 
   const [addingHabits, setAddingHabbits] = useState([]);
 
@@ -78,6 +82,7 @@ export default function AddItem(props, { handleClose, text }) {
     props.getUserData();
     props.handleClose();
   };
+
   return (
     <Backdrop onClick={props.handleClose}>
       <motion.div
@@ -89,10 +94,10 @@ export default function AddItem(props, { handleClose, text }) {
         exit="exit">
         <form onSubmit={handleSubmit}>
           <div className="box-space">
-            {standHabits.map((item) => (
+            {props.standHabits.map((item) => (
               <div className="checkboxes">
                 <input
-                  key={`${item.toString()}-checkbox`}
+                  key={`${item}-checkbox`}
                   type="checkbox"
                   name={item}
                   onChange={checkboxTogglerValue}

@@ -38,6 +38,7 @@ export default function HabitSection(props) {
             userItems={props.userItems}
             modalOpen={modalOpen}
             handleClose={close}
+            standHabits={props.standHabits}
           />
         </div>
       )}

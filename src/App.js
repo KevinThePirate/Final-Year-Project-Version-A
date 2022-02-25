@@ -30,6 +30,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import SignIn from "./components/SignIn";
 import HabitSection from "./components/HabitSection";
+import MoodTrackingSection from "./components/MoodTracking/MoodTrackingSection";
 
 function App() {
   //const [user, setUser] = useState({});
@@ -37,8 +38,10 @@ function App() {
   //const todosRef = firestore.collection(`users/${auth.currentUser.uid}/todos`);
   let userItemRef = collection(db, `users/${userInfo.uid}/todos`);
   const [userItems, setUserItems] = useState([]);
+  const [standHabits, setStandHabits] = useState([]);
 
   let localItemArray = [];
+  let testArr = [];
   const getUserData = () => {
     //console.log("Ran getUserData()");
     //console.log(userInfo);
@@ -115,6 +118,20 @@ function App() {
     console.log("Test");
   };
 
+  const getStandardHabits = () => {
+    let localArr = [];
+    let standHabitsCol = collection(db, "standardHabits");
+    getDocs(standHabitsCol)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          const habit = doc.data().habitTitle;
+          localArr.push(habit);
+        });
+        setStandHabits(localArr);
+      })
+      .catch((error) => console.log(error.message));
+  };
+
   /*getDocs(userItemRef)
     .then((snapshot) => {
       //console.log(snapshot.docs);
@@ -126,10 +143,13 @@ function App() {
     })
     .catch((error) => console.log(error.message));*/
   useEffect(() => getUserData(), [userInfo, handleDelete]);
+
+  useEffect(() => getStandardHabits(), []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        {userInfo.uid ? (
+      {userInfo.uid ? (
+        <div style={{ color: "white" }}>
           <HabitSection
             userInfo={userInfo}
             userItems={userItems}
@@ -137,11 +157,13 @@ function App() {
             handleDelete={handleDelete}
             handleCheckIn={handleCheckIn}
             signUserOut={signUserOut}
+            standHabits={standHabits}
           />
-        ) : (
-          <SignIn signInWithGoogle={signInWithGoogle} />
-        )}
-      </header>
+          <MoodTrackingSection userInfo={userInfo} />
+        </div>
+      ) : (
+        <SignIn signInWithGoogle={signInWithGoogle} />
+      )}
     </div>
   );
 }
