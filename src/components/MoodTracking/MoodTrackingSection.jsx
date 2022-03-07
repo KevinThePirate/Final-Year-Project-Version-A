@@ -75,6 +75,7 @@ export default function MoodTrackingSection(props) {
         updateLog();
         checkInToday(true);
       });
+    props.xpUp(5);
   };
 
   useEffect(() => {
@@ -117,6 +118,7 @@ export default function MoodTrackingSection(props) {
             </div>
           ) : (
             <div>
+              <h3> How Do You Feel Today?</h3>
               <button onClick={logMood}>Great</button>
               <button onClick={logMood}>Good</button>
               <button onClick={logMood}>Eh</button>
@@ -127,6 +129,7 @@ export default function MoodTrackingSection(props) {
         </div>
       ) : (
         <div>
+          <h3> How Do You Feel Today?</h3>
           <button onClick={logMood}>Great</button>
           <button onClick={logMood}>Good</button>
           <button onClick={logMood}>Eh</button>

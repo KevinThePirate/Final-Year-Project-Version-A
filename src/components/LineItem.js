@@ -22,6 +22,8 @@ export default function LineItem(props) {
       console.log("Already Checked This In, Buddy!");
     } else {
       props.handleCheckIn(props.item.id, props.item.checkInCounter);
+      console.log(props.item.checkInCounter);
+      props.xpUp(props.item.checkInCounter);
     }
     styling();
   };

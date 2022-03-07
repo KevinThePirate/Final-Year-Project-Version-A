@@ -1,5 +1,5 @@
 import logo from "./logo.svg";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { db, authentication } from "./firebase";
 import {
@@ -31,6 +31,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import SignIn from "./components/SignIn";
 import HabitSection from "./components/HabitSection";
 import MoodTrackingSection from "./components/MoodTracking/MoodTrackingSection";
+import VirtualPet from "./components/VirtualPet/VirtualPet";
 
 function App() {
   //const [user, setUser] = useState({});
@@ -146,10 +147,16 @@ function App() {
 
   useEffect(() => getStandardHabits(), []);
 
+  const petRef = useRef(null);
+  const accessEXP = () => {
+    petRef.current();
+  };
+
   return (
     <div className="App">
       {userInfo.uid ? (
         <div style={{ color: "white" }}>
+          <VirtualPet userInfo={userInfo} ref={petRef} petRef={petRef} />
           <HabitSection
             userInfo={userInfo}
             userItems={userItems}
@@ -158,8 +165,9 @@ function App() {
             handleCheckIn={handleCheckIn}
             signUserOut={signUserOut}
             standHabits={standHabits}
+            xpUp={petRef.current}
           />
-          <MoodTrackingSection userInfo={userInfo} />
+          <MoodTrackingSection userInfo={userInfo} xpUp={petRef.current} />
         </div>
       ) : (
         <SignIn signInWithGoogle={signInWithGoogle} />

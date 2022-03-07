@@ -27,6 +27,7 @@ export default function HabitSection(props) {
           handleDelete={props.handleDelete}
           handleCheckIn={props.handleCheckIn}
           getUserData={props.getUserData}
+          xpUp={props.xpUp}
         />
       ))}
       <button onClick={open}>Add Item!</button>
