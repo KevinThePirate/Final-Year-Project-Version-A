@@ -75,7 +75,6 @@ export default function MoodTrackingSection(props) {
         updateLog();
         checkInToday(true);
       });
-    props.xpUp(5);
   };
 
   useEffect(() => {

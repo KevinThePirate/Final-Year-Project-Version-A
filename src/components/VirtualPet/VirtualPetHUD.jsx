@@ -82,6 +82,24 @@ export default function VirtualPetHUD(props) {
             <div>
               Exp: {props.petInfo.exp} / {currentLevelInfo.expRequired}
             </div>
+            <div
+              id="expBar"
+              style={{
+                height: "25px",
+                border: "1px solid white",
+                width: "100%",
+              }}>
+              {" "}
+              <div
+                style={{
+                  height: "100%",
+                  width:
+                    (props.petInfo.exp / currentLevelInfo.expRequired) * 100 +
+                    "%",
+                  background: "green",
+                  transition: "1s",
+                }}></div>
+            </div>
           </section>
         </div>
       ) : (
