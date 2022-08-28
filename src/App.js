@@ -156,18 +156,8 @@ function App() {
     <div className="App">
       {userInfo.uid ? (
         <div style={{ color: "white" }}>
-          <VirtualPet userInfo={userInfo} ref={petRef} petRef={petRef} />
-          <HabitSection
-            userInfo={userInfo}
-            userItems={userItems}
-            getUserData={getUserData}
-            handleDelete={handleDelete}
-            handleCheckIn={handleCheckIn}
-            signUserOut={signUserOut}
-            standHabits={standHabits}
-            xpUp={petRef.current}
-          />
-          <MoodTrackingSection userInfo={userInfo} xpUp={petRef.current} />
+          <p> User: {userInfo.displayName}</p>
+          <p> ID: {userInfo.uid}</p>
         </div>
       ) : (
         <SignIn signInWithGoogle={signInWithGoogle} />
